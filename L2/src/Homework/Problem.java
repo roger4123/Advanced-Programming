@@ -22,7 +22,7 @@ public class Problem {
         // Copy elements and count valid entries
         if (students != null) {
             for (int i = 0; i < students.length; i++) {
-                if (students[i] != null) {  
+                if (students[i] != null) {
                     this.students[i] = students[i];
                     studentCount++;
                 }
