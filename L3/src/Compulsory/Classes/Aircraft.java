@@ -1,7 +1,4 @@
-package Compulsory.Classes;
-
-import Compulsory.Interfaces.CargoCapable;
-import Compulsory.Interfaces.PassengerCapable;
+package Homework;
 
 public abstract class Aircraft implements Comparable<Aircraft> {
     private String model;
