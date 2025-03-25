@@ -2,8 +2,6 @@ package Compulsory.Classes;
 
 import Compulsory.Interfaces.CargoCapable;
 
-import java.io.Serializable;
-
 public class Drone extends Aircraft implements CargoCapable {
     private double loadCapacity;
     private int batteryCapacity;

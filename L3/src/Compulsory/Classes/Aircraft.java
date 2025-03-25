@@ -1,4 +1,4 @@
-package Homework;
+package Compulsory.Classes;
 
 public abstract class Aircraft implements Comparable<Aircraft> {
     private String model;
