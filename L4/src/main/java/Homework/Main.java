@@ -12,8 +12,6 @@ import org.jgrapht.graph.SimpleDirectedWeightedGraph;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static Bonus.PerformanceTest.computeFastestTimes;
-
 public class Main {
     public static void main(String[] args) {
         Faker faker = new Faker();
@@ -46,7 +44,7 @@ public class Main {
 
         Map<LocationType, List<Location>> locationsOfType = locations.stream().collect(Collectors.groupingBy(Location::getType));
 
-        Map<Location, Double> fastestTimes = computeFastestTimes(robotMap);
+        Map<Location, Double> fastestTimes = robotMap.computeFastestTimes();
 
         System.out.println("\nFastest times from " + startLocation.getName() + ":\n");
         System.out.println("■ to friendly locations: ");

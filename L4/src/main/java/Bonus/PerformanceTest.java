@@ -2,60 +2,20 @@ package Bonus;
 
 import Compulsory.Location;
 import Compulsory.LocationType;
-import Compulsory.Path;
 import Homework.Robot;
-import org.jgrapht.Graph;
-import org.jgrapht.alg.shortestpath.DijkstraShortestPath;
-import org.jgrapht.graph.DefaultWeightedEdge;
-import org.jgrapht.graph.SimpleDirectedWeightedGraph;
 
 import java.util.EnumMap;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 public class PerformanceTest{
-    private RandomProblemGenerator rpg;
-    private List<PerformanceResult> results;
+    private final RandomProblemGenerator rpg;
+    private final List<PerformanceResult> results;
 
     public PerformanceTest(RandomProblemGenerator rpg, List<PerformanceResult> results) {
         this.rpg = rpg;
         this.results = results;
-    }
-
-    public static Map<Location, Double> computeFastestTimes(Robot robotMap) {
-        Graph<Location, DefaultWeightedEdge> graph = new SimpleDirectedWeightedGraph<>(DefaultWeightedEdge.class);
-
-        for(Location loc : robotMap.getLocations()) {
-            graph.addVertex(loc);
-        }
-
-        for(Path path : robotMap.getPaths()) {
-            if (!path.getStart().equals(path.getDestination())) {
-                DefaultWeightedEdge weightedEdge = graph.addEdge(path.getStart(), path.getDestination());
-                if(weightedEdge != null) {
-                    graph.setEdgeWeight(weightedEdge, path.getTime());
-                }
-            }
-        }
-
-        // compute the shortest paths using Dijkstra Algorithm ( from start to all other locations )
-        DijkstraShortestPath<Location, DefaultWeightedEdge> dsp = new DijkstraShortestPath<>(graph);
-        Map<Location, Double> fastestTimes = new HashMap<>();
-
-        for(Location loc : robotMap.getLocations()) {
-            if(!loc.equals(robotMap.getStart())) {
-                double shortestPathWeight = dsp.getPathWeight(robotMap.getStart(), loc);
-                if(Double.isFinite(shortestPathWeight)) {
-                    fastestTimes.put(loc, Math.floor(shortestPathWeight * 100) / 100);
-                }
-                else {
-                    fastestTimes.put(loc, Double.MAX_VALUE);
-                }
-            }
-        }
-        return fastestTimes;
     }
 
     private PerformanceResult testPerformance(int problemSize, double connectivityDensity) {
@@ -63,7 +23,7 @@ public class PerformanceTest{
         Robot map = rpg.generateRandomProblem(problemSize, connectivityDensity);
 
         long startTime = System.currentTimeMillis();
-        Map<Location, Double> fastestTimes = computeFastestTimes(map);
+        Map<Location, Double> fastestTimes = map.computeFastestTimes();
         long endTime = System.currentTimeMillis();
         result.setFastestRoutesComputeTime(endTime - startTime);
 

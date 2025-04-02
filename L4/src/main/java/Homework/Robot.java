@@ -37,6 +37,40 @@ public class Robot {
         return start;
     }
 
+    public Map<Location, Double> computeFastestTimes() {
+        Graph<Location, DefaultWeightedEdge> graph = new SimpleDirectedWeightedGraph<>(DefaultWeightedEdge.class);
+
+        for(Location loc : locations) {
+            graph.addVertex(loc);
+        }
+
+        for(Path path : paths) {
+            if (!path.getStart().equals(path.getDestination())) {
+                DefaultWeightedEdge weightedEdge = graph.addEdge(path.getStart(), path.getDestination());
+                if(weightedEdge != null) {
+                    graph.setEdgeWeight(weightedEdge, path.getTime());
+                }
+            }
+        }
+
+        // compute the shortest paths using Dijkstra Algorithm ( from start to all other locations )
+        DijkstraShortestPath<Location, DefaultWeightedEdge> dsp = new DijkstraShortestPath<>(graph);
+        Map<Location, Double> fastestTimes = new HashMap<>();
+
+        for(Location loc : locations) {
+            if(!loc.equals(start)) {
+                double shortestPathWeight = dsp.getPathWeight(start, loc);
+                if(Double.isFinite(shortestPathWeight)) {
+                    fastestTimes.put(loc, Math.floor(shortestPathWeight * 100) / 100);
+                }
+                else {
+                    fastestTimes.put(loc, Double.MAX_VALUE);
+                }
+            }
+        }
+        return fastestTimes;
+    }
+
     // BONUS
     public Map<Pair, SafestRoute> computeSafestRoutes() {
         Graph<Location, DefaultWeightedEdge> graph = new SimpleDirectedWeightedGraph<>(DefaultWeightedEdge.class);
