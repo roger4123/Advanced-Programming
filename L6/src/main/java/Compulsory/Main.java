@@ -1,5 +1,7 @@
 package Compulsory;
 
+import Homework.GameFrame;
+
 import javax.swing.*;
 
 public class Main {
