@@ -19,8 +19,21 @@ public class Board {
         return playerScores;
     }
 
-    public List<String> getWords() {
+    public List<String> getWords() {    
         return words;
+    }
+
+    public void displayScores() {
+        System.out.println("\nFinal Scores:");
+        playerScores.forEach((player, score) ->
+                System.out.println(player.getName() + ": " + score + " points"));
+
+        // Determine and display the winner
+        playerScores.entrySet().stream()
+                .max(Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey).ifPresent(winner -> System.out.println("\nWinner: " + winner.getName() + " with " +
+                        playerScores.get(winner) + " points!"));
+
     }
 
     @Override

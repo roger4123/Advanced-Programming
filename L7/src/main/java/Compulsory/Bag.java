@@ -34,4 +34,8 @@ public class Bag {
     public boolean isEmpty() {
         return tiles.values().stream().allMatch(Queue::isEmpty);
     }
+
+    public int getTileCount() {
+        return tiles.size();
+    }
 }

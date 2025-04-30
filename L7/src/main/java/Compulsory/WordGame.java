@@ -32,7 +32,6 @@ public class WordGame {
             }
         }
 
-        // Display final scores
         System.out.println("Game finished!");
         System.out.println("Final scores:");
         for (Player player : players) {
