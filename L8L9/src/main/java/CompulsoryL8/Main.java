@@ -1,11 +1,11 @@
-package Compulsory;
+package CompulsoryL8;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import Compulsory.db.DatabaseConnection;
-import Compulsory.dao.ContinentDAO;
-import Compulsory.dao.CountryDAO;
+import CompulsoryL8.db.DatabaseConnection;
+import CompulsoryL8.dao.ContinentDAO;
+import CompulsoryL8.dao.CountryDAO;
 
 
 public class Main {
@@ -16,8 +16,8 @@ public class Main {
             ContinentDAO continentDAO = new ContinentDAO(connection);
             CountryDAO countryDAO = new CountryDAO(connection);
 
-            continentDAO.addContinent("Europe");
-            countryDAO.addCountry("Romania", "ROU", 1);
+            //continentDAO.addContinent("Europe");
+            //countryDAO.addCountry("Romania", "ROU", 1);
 
             System.out.println("Continent with ID 1: " + continentDAO.findContinentById(1));
             System.out.println("Country with ID 1: " + countryDAO.findCountryById(1));

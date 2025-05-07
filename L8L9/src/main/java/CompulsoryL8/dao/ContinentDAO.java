@@ -1,4 +1,4 @@
-package Compulsory.dao;
+package CompulsoryL8.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

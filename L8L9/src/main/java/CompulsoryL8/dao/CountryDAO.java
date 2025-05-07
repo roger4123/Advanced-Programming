@@ -1,4 +1,4 @@
-package Compulsory.dao;
+package CompulsoryL8.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -48,5 +48,16 @@ public class CountryDAO {
         return "Country not found";
     }
 
+    public int findCountryIdByName(String name) throws SQLException {
+        String query = "SELECT id FROM countries WHERE name = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, name);
+            ResultSet resultSet = stmt.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt("id");
+            }
+        }
+        return -1;
+    }
 }
 
